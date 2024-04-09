@@ -1,0 +1,26 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka:
+      value: true
+    fetch-registry:
+      value: true
+    instance:
+      hostname: localhost
+
+spring:
+  application:
+    name: ApiGateway
+  cloud:
+    gateway:
+      routes:
+        - id: course-service
+          uri: lb://CourseService
+          predicates:
+            - Path=/course-service/**
+
+        - id: course-service2
+          uri: lb://Service2
+          predicates:
+            - Path=/course-service2/**
